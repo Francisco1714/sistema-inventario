@@ -1,4 +1,5 @@
-from database.conexion import obtener_conexion 
+from database.conexion import obtener_conexion
+import productos 
 
 # --------------------------------------------------
 # CREAR TABLA DE PRODUCTOS
@@ -21,3 +22,4 @@ def crear_tabla_productos():
     
     conexion.commit()
     conexion.close()
+
