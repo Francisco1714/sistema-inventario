@@ -1,5 +1,6 @@
 from database.conexion import obtener_conexion
 
+
 # --------------------------------------------------
 # MODIFICAR PRODUCTO
 # --------------------------------------------------
@@ -38,19 +39,24 @@ def modificar_producto():
 
     print("--------------------------------")
 
-    id = input("ID del producto a modificar: ")
+    while True:
+        try:
+            id = int(input("ID del producto a modificar: "))
 
-    cursor.execute(
-        "SELECT * FROM productos WHERE id = ?",
-        (id,)
-    )
+            cursor.execute(
+                "SELECT * FROM productos WHERE id = ?",
+                (id,)
+            )
 
-    producto = cursor.fetchone()
+            producto = cursor.fetchone()
 
-    if not producto:
-        print("No existe un producto con ese ID.")
-        conexion.close()
-        return
+            if producto:
+                break
+
+            print("No existe un producto con ese ID.")
+
+        except ValueError:
+            print("El ID debe ser un número entero.")
 
     print()
     print("Producto actual:")
@@ -61,10 +67,45 @@ def modificar_producto():
     print(f"Stock: {producto[4]}")
     print()
 
-    nombre = input("Nuevo nombre: ")
-    descripcion = input("Nueva descripción: ")
-    precio = float(input("Nuevo precio (USD): "))
-    stock = int(input("Nuevo stock: "))
+    while True:
+        nombre = input("Nuevo nombre: ").strip()
+
+        if nombre:
+            break
+
+        print("El nombre no puede estar vacío.")
+
+    while True:
+        descripcion = input("Nueva descripción: ").strip()
+
+        if descripcion:
+            break
+
+        print("La descripción no puede estar vacía.")
+
+    while True:
+        try:
+            precio = float(input("Nuevo precio (USD): "))
+
+            if precio > 0:
+                break
+
+            print("El precio debe ser mayor que 0.")
+
+        except ValueError:
+            print("El precio debe ser un número válido.")
+
+    while True:
+        try:
+            stock = int(input("Nuevo stock: "))
+
+            if stock >= 0:
+                break
+
+            print("El stock no puede ser negativo.")
+
+        except ValueError:
+            print("El stock debe ser un número entero.")
 
     print()
     print("Nuevos datos:")
