@@ -8,6 +8,8 @@
 
     <h1>Inventario</h1>
 
+    <p><a href="{{ url_for('web.crear_producto_view') }}">Crear nuevo producto</a></p>
+
     {% if productos %}
         {% for producto in productos %}
             <div>
