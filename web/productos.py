@@ -23,3 +23,27 @@ def crear_producto(nombre, descripcion, precio, stock):
 
     conexion.commit()
     conexion.close()
+
+def obtener_producto_por_id(id):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    cursor.execute("SELECT * FROM productos WHERE id = ?", (id,))
+
+    producto = cursor.fetchone()
+
+    conexion.close()
+
+    return producto
+
+def actualizar_producto(id, nombre, descripcion, precio, stock):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    cursor.execute(
+    "UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ? WHERE id = ?",
+    (nombre, descripcion, precio, stock, id)
+    )
+
+    conexion.commit()
+    conexion.close()

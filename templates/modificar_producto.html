@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar Producto</title>
+</head>
+<body>
+
+    <h1>Modificar Producto</h1>
+
+    <form method="POST">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" value="{{ producto[1] }}" required>
+        </div>
+        <div>
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" name="descripcion" value="{{ producto[2] }}" required>
+        </div>
+        <div>
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" step="0.01" value="{{ producto[3] }}" required>
+        </div>
+        <div>
+            <label for="stock">Stock:</label>
+            <input type="number" id="stock" name="stock" value="{{ producto[4] }}" required>
+        </div>
+        <div>
+            <button type="submit">Guardar Cambios</button>
+        </div>
+    </form>
+
+    <p><a href="{{ url_for('web.listar_productos') }}">Volver al listado</a></p>
+
+</body>
+</html>

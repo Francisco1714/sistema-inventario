@@ -1,8 +1,7 @@
 from flask import render_template, request, redirect, url_for
 
 from web import web_bp
-from web.productos import obtener_productos, crear_producto
-
+from web.productos import obtener_producto_por_id, obtener_productos, crear_producto, actualizar_producto
 
 @web_bp.route("/")
 def inicio():
@@ -30,3 +29,18 @@ def crear_producto_view():
 
         return redirect(url_for("web.listar_productos"))
     return render_template("crear_producto.html")
+
+@web_bp.route("/productos/<int:id>/modificar", methods=["GET", "POST"])
+def modificar_producto_view(id):
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        descripcion = request.form["descripcion"]
+        precio = request.form["precio"]
+        stock = request.form["stock"]       
+
+        actualizar_producto(id, nombre, descripcion, float(precio), int(stock))
+
+        return redirect(url_for("web.listar_productos"))
+
+    producto = obtener_producto_por_id(id)
+    return render_template("modificar_producto.html", producto=producto)
