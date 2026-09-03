@@ -2,33 +2,55 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Productos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | Sistema de Inventario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-    <h1>Inventario</h1>
+    <header class="header">
+        <h1>Sistema de Inventario</h1>
+        <nav>
+            <a href="{{ url_for('web.inicio') }}">Inicio</a>
+            <a href="{{ url_for('web.listar_productos') }}">Productos</a>
+        </nav>
+    </header>
 
-    <p><a href="{{ url_for('web.crear_producto_view') }}">Crear nuevo producto</a></p>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h2>Productos</h2>
+            <a href="{{ url_for('web.crear_producto_view') }}" class="btn btn-primary">+ Nuevo Producto</a>
+        </div>
 
-    {% if productos %}
-        {% for producto in productos %}
-            <div>
-                <h2>{{ producto[1] }}</h2>
-                <p>Descripción: {{ producto[2] }}</p>
-                <p>Precio: ${{ producto[3] }}</p>
-                <p>Stock: {{ producto[4] }}</p>
-                <p><a href="{{ url_for('web.modificar_producto_view', id=producto[0]) }}">Editar</a></p>
-                <form action="{{ url_for('web.eliminar_producto_view', id=producto[0]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este producto?');"style="display:inline;">
-                    <button type="submit" 
-                        style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline; padding:0; font:inherit;">
-                     Eliminar</button>
-                </form>
+        {% if productos %}
+            <div class="productos-grid">
+                {% for producto in productos %}
+                    <div class="producto-card">
+                        <h2>{{ producto[1] }}</h2>
+                        <div class="producto-info">
+                            <p>{{ producto[2] }}</p>
+                            <p class="precio">${{ "%.2f"|format(producto[3]) }} USD</p>
+                            <span class="stock {% if producto[4] == 0 %}agotado{% elif producto[4] < 5 %}bajo{% endif %}">
+                                Stock: {{ producto[4] }}
+                            </span>
+                        </div>
+                        <div class="producto-acciones">
+                            <a href="{{ url_for('web.modificar_producto_view', id=producto[0]) }}" class="btn btn-edit">Editar</a>
+                            <form action="{{ url_for('web.eliminar_producto_view', id=producto[0]) }}" method="POST"
+                                  onsubmit="return confirm('¿Está seguro de eliminar este producto?');"
+                                  style="display:inline;">
+                                <button type="submit" class="btn btn-delete">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            <hr>
-        {% endfor %}
-    {% else %}
-        <p>No hay productos registrados.</p>
-    {% endif %}
+        {% else %}
+            <div class="vacio">
+                <p>No hay productos registrados.</p>
+            </div>
+        {% endif %}
+    </div>
 
 </body>
 </html>

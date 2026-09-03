@@ -2,12 +2,27 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema de Inventario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio | Sistema de Inventario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-    <h1>Sistema de Inventario</h1>
-    <p>Aplicación web de gestión de inventario.</p>
+    <header class="header">
+        <h1>Sistema de Inventario</h1>
+        <nav>
+            <a href="{{ url_for('web.inicio') }}">Inicio</a>
+            <a href="{{ url_for('web.listar_productos') }}">Productos</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="vacio">
+            <h2 style="margin-bottom: 1rem;">Sistema de Inventario</h2>
+            <p>Gestión de productos para tienda de tecnología.</p>
+            <a href="{{ url_for('web.listar_productos') }}" class="btn btn-primary" style="margin-top: 1.5rem;">Ver Productos</a>
+        </div>
+    </div>
 
 </body>
 </html>

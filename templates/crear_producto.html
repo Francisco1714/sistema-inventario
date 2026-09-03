@@ -2,35 +2,47 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Producto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Producto | Sistema de Inventario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-    <h1>Crear Nuevo Producto</h1>
+    <header class="header">
+        <h1>Sistema de Inventario</h1>
+        <nav>
+            <a href="{{ url_for('web.inicio') }}">Inicio</a>
+            <a href="{{ url_for('web.listar_productos') }}">Productos</a>
+        </nav>
+    </header>
 
-    <form method="POST">
-        <div>
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+    <div class="container">
+        <div class="form-container">
+            <h2 style="margin-bottom: 1.5rem;">Crear Nuevo Producto</h2>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <input type="text" id="descripcion" name="descripcion" required>
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio (USD):</label>
+                    <input type="number" id="precio" name="precio" step="0.01" min="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock:</label>
+                    <input type="number" id="stock" name="stock" min="0" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Crear Producto</button>
+                    <a href="{{ url_for('web.listar_productos') }}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="descripcion">Descripción:</label>
-            <input type="text" id="descripcion" name="descripcion" required>
-        </div>
-        <div>
-            <label for="precio">Precio:</label>
-            <input type="number" id="precio" name="precio" step="0.01" required>
-        </div>
-        <div>
-            <label for="stock">Stock:</label>
-            <input type="number" id="stock" name="stock" required>
-        </div>
-        <div>
-            <button type="submit">Crear Producto</button>
-        </div>
-    </form>
-
-    <p><a href="{{ url_for('web.listar_productos') }}">Volver al listado</a></p>
+    </div>
 
 </body>
 </html>
