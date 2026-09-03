@@ -220,3 +220,18 @@ a:hover {
     border: 1px dashed #30363d;
     border-radius: 8px;
 }
+.errores {
+    background-color: #3d1114;
+    border: 1px solid #f85149;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+.errores ul {
+    list-style: none;
+}
+.errores li {
+   color:#f85149;
+   font-size: 0.9rem;
+   padding: 0.25rem 0;
+}

@@ -22,8 +22,26 @@ def crear_producto_view():
         precio = request.form["precio"]
         stock = request.form["stock"]
 
-        crear_producto(nombre, descripcion, float(precio), int(stock))
+        errores = []
+        if not nombre or not nombre.strip():
+            errores.append("El nombre es obligatorio")
+        try:
+            precio_float = float(precio)
+            if precio_float <= 0:
+                errores.append("El precio debe ser mayor a 0")
+        except ValueError:
+            errores.append("El precio debe ser un número válido")
+        try:
+            stock_int = int(stock)
+            if stock_int < 0:
+                errores.append("El stock no puede ser negativo")
+        except ValueError:
+            errores.append("El stock debe ser un número entero")
 
+        if errores:
+            return render_template("crear_producto.html", errores=errores, nombre=nombre, descripcion=descripcion, precio=precio, stock=stock)
+
+        crear_producto(nombre, descripcion, precio_float, stock_int)
         return redirect(url_for("web.listar_productos"))
     return render_template("crear_producto.html")
 
@@ -33,10 +51,29 @@ def modificar_producto_view(id):
         nombre = request.form["nombre"]
         descripcion = request.form["descripcion"]
         precio = request.form["precio"]
-        stock = request.form["stock"]       
+        stock = request.form["stock"]
 
-        actualizar_producto(id, nombre, descripcion, float(precio), int(stock))
+        errores = []
+        if not nombre or not nombre.strip():
+            errores.append("El nombre es obligatorio")
+        try:
+            precio_float = float(precio)
+            if precio_float <= 0:
+                errores.append("El precio debe ser mayor a 0")
+        except ValueError:
+            errores.append("El precio debe ser un número válido")
+        try:
+            stock_int = int(stock)
+            if stock_int < 0:
+                errores.append("El stock no puede ser negativo")
+        except ValueError:
+            errores.append("El stock debe ser un número entero")
 
+        if errores:
+            producto = {"id": id, "nombre": nombre, "descripcion": descripcion, "precio": precio, "stock": stock}
+            return render_template("modificar_producto.html", producto=producto, errores=errores)
+
+        actualizar_producto(id, nombre, descripcion, precio_float, stock_int)
         return redirect(url_for("web.listar_productos"))
 
     producto = obtener_producto_por_id(id)
@@ -45,4 +82,4 @@ def modificar_producto_view(id):
 @web_bp.route("/productos/<int:id>/eliminar", methods=["POST"])
 def eliminar_producto_view(id):
     eliminar_producto(id)
-    return redirect(url_for("web.listar_productos"))
+    return redirect(url_for("web.iniciar"))

@@ -19,22 +19,31 @@
     <div class="container">
         <div class="form-container">
             <h2 style="margin-bottom: 1.5rem;">Crear Nuevo Producto</h2>
+            {% if errores %}
+                <div class="errores">
+                    <ul>
+                        {% for error in errores %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
             <form method="POST">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <input type="text" id="nombre" name="nombre" value="{{ nombre }}">
                 </div>
                 <div class="form-group">
                     <label for="descripcion">Descripción:</label>
-                    <input type="text" id="descripcion" name="descripcion" required>
+                    <input type="text" id="descripcion" name="descripcion" value="{{ descripcion }}">
                 </div>
                 <div class="form-group">
                     <label for="precio">Precio (USD):</label>
-                    <input type="number" id="precio" name="precio" step="0.01" min="0.01" required>
+                    <input type="number" id="precio" name="precio" step="0.01" min="0.01" value="{{ precio }}">
                 </div>
                 <div class="form-group">
                     <label for="stock">Stock:</label>
-                    <input type="number" id="stock" name="stock" min="0" required>
+                    <input type="number" id="stock" name="stock" min="0" value="{{ stock }}">
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Crear Producto</button>

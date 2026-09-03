@@ -1,4 +1,6 @@
 import sqlite3
 
 def obtener_conexion():
-    return sqlite3.connect("inventario.db")
+    conexion = sqlite3.connect("inventario.db")
+    conexion.row_factory = sqlite3.Row
+    return conexion 
