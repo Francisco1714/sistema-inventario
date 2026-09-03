@@ -1,21 +1,18 @@
 from flask import render_template, request, redirect, url_for
 
 from web import web_bp
-from web.productos import obtener_producto_por_id, obtener_productos, crear_producto, actualizar_producto
+from web.productos import obtener_producto_por_id, obtener_productos, crear_producto, actualizar_producto, eliminar_producto
 
 @web_bp.route("/")
 def inicio():
-    return render_template("inicio.html")
+    productos = obtener_productos()
+    return render_template("productos.html", productos=productos)
 
 
 @web_bp.route("/productos")
 def listar_productos():
     productos = obtener_productos()
-
-    return render_template(
-        "productos.html",
-        productos=productos
-    )
+    return redirect(url_for("web.inicio"))  
 
 @web_bp.route("/productos/crear", methods=["GET", "POST"])
 def crear_producto_view():
@@ -44,3 +41,8 @@ def modificar_producto_view(id):
 
     producto = obtener_producto_por_id(id)
     return render_template("modificar_producto.html", producto=producto)
+
+@web_bp.route("/productos/<int:id>/eliminar", methods=["POST"])
+def eliminar_producto_view(id):
+    eliminar_producto(id)
+    return redirect(url_for("web.listar_productos"))

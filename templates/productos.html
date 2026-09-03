@@ -18,6 +18,11 @@
                 <p>Precio: ${{ producto[3] }}</p>
                 <p>Stock: {{ producto[4] }}</p>
                 <p><a href="{{ url_for('web.modificar_producto_view', id=producto[0]) }}">Editar</a></p>
+                <form action="{{ url_for('web.eliminar_producto_view', id=producto[0]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este producto?');"style="display:inline;">
+                    <button type="submit" 
+                        style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline; padding:0; font:inherit;">
+                     Eliminar</button>
+                </form>
             </div>
             <hr>
         {% endfor %}

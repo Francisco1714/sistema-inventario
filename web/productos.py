@@ -47,3 +47,12 @@ def actualizar_producto(id, nombre, descripcion, precio, stock):
 
     conexion.commit()
     conexion.close()
+
+def eliminar_producto(id):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    cursor.execute("DELETE FROM productos WHERE id = ?", (id,))
+
+    conexion.commit()
+    conexion.close()
