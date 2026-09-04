@@ -12,7 +12,7 @@
         <h1>Sistema de Inventario</h1>
         <nav>
             <a href="{{ url_for('web.inicio') }}">Inicio</a>
-            <a href="{{ url_for('web.listar_productos') }}">Productos</a>
+            <a href="{{ url_for('web.inicio') }}">Productos</a>
         </nav>
     </header>
 
@@ -20,7 +20,7 @@
         <div class="vacio">
             <h2 style="margin-bottom: 1rem;">Sistema de Inventario</h2>
             <p>Gestión de productos para tienda de tecnología.</p>
-            <a href="{{ url_for('web.listar_productos') }}" class="btn btn-primary" style="margin-top: 1.5rem;">Ver Productos</a>
+            <a href="{{ url_for('web.inicio') }}" class="btn btn-primary" style="margin-top: 1.5rem;">Ver Productos</a>
         </div>
     </div>
 
