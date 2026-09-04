@@ -235,3 +235,14 @@ a:hover {
    font-size: 0.9rem;
    padding: 0.25rem 0;
 }
+.flash {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+}
+
+.flash.success {
+    background-color: #0d2818;
+    border: 1px solid #3fb950;
+    color: #3fb950;
+}

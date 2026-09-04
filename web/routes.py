@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash 
 
 from web import web_bp
 from web.productos import obtener_producto_por_id, obtener_productos, crear_producto, actualizar_producto, eliminar_producto
@@ -42,6 +42,7 @@ def crear_producto_view():
             return render_template("crear_producto.html", errores=errores, nombre=nombre, descripcion=descripcion, precio=precio, stock=stock)
 
         crear_producto(nombre, descripcion, precio_float, stock_int)
+        flash("Producto creado exitosamente", "success")
         return redirect(url_for("web.listar_productos"))
     return render_template("crear_producto.html")
 
@@ -74,6 +75,7 @@ def modificar_producto_view(id):
             return render_template("modificar_producto.html", producto=producto, errores=errores)
 
         actualizar_producto(id, nombre, descripcion, precio_float, stock_int)
+        flash("Producto modificado exitosamente", "success")
         return redirect(url_for("web.listar_productos"))
 
     producto = obtener_producto_por_id(id)
@@ -82,4 +84,5 @@ def modificar_producto_view(id):
 @web_bp.route("/productos/<int:id>/eliminar", methods=["POST"])
 def eliminar_producto_view(id):
     eliminar_producto(id)
-    return redirect(url_for("web.iniciar"))
+    flash("Producto eliminado exitosamente", "success")
+    return redirect(url_for("web.inicio"))
