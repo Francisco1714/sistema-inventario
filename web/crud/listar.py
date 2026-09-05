@@ -15,4 +15,10 @@ def contar_productos():
     with obtener_cursor() as cursor:
         cursor.execute("SELECT COUNT(*) FROM productos")
         return cursor.fetchone()[0]
-    
+
+def buscar_productos(termino):
+    with obtener_cursor() as cursor:
+        cursor.execute(
+            "SELECT * FROM productos WHERE nombre LIKE ? OR descripcion LIKE ?", (f"%{termino}%",f"%{termino}%")
+        )
+        return cursor.fetchall()
