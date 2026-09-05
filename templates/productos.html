@@ -53,6 +53,24 @@
                     </div>
                 {% endfor %}
             </div>
+                    {% if total_pages > 1 %}
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a href="{{ url_for('web.inicio', page=page-1) }}" class="pagination-link">&laquo; Anterior</a>
+                {% endif %}
+
+                {% for p in range(1, total_pages + 1) %}
+                    <a href="{{ url_for('web.inicio', page=p) }}"
+                       class="pagination-link {% if p == page %}active{% endif %}">
+                        {{ p }}
+                    </a>
+                {% endfor %}
+
+                {% if page < total_pages %}
+                    <a href="{{ url_for('web.inicio', page=page+1) }}" class="pagination-link">Siguiente &raquo;</a>
+                {% endif %}    
+            </div>
+        {% endif %}
         {% else %}
             <div class="vacio">
                 <p>No hay productos registrados.</p>
