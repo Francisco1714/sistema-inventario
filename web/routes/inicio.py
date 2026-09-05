@@ -1,6 +1,6 @@
 from flask import render_template
 from web import web_bp
-from web.productos import obtener_productos
+from web.crud import obtener_productos
 
 @web_bp.route("/")
 def inicio():

@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
 from web import web_bp
-from web.productos import obtener_producto_por_id, actualizar_producto
+from web.crud import obtener_producto_por_id, actualizar_producto
 
 @web_bp.route("/productos/<int:id>/modificar", methods=["GET", "POST"])
 def modificar_producto_view(id):

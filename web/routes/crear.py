@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
 from web import web_bp
-from web.productos import crear_producto
+from web.crud import crear_producto
 
 @web_bp.route("/productos/crear", methods=["GET", "POST"])
 def crear_producto_view():
