@@ -1,5 +1,5 @@
 from database.conexion import obtener_conexion
-import productos 
+import psycopg2.extras
 
 # --------------------------------------------------
 # CREAR TABLA DE PRODUCTOS
@@ -7,15 +7,14 @@ import productos
 
 def crear_tabla_productos():
     conexion = obtener_conexion()
-    cursor = conexion.cursor()
+    cursor = conexion.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-    # aqui ira el create table 
     cursor.execute(""" 
     CREATE TABLE IF NOT EXISTS productos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombre TEXT,
+        id SERIAL PRIMARY KEY,
+        nombre VARCHAR(255),
         descripcion TEXT,
-        precio REAL,
+        precio NUMERIC,
         stock INTEGER
     )
 """)

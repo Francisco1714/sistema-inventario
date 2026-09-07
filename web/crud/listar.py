@@ -8,17 +8,17 @@ def obtener_productos():
 def obtener_productos_paginados(page, per_page=12):
     offset = (page - 1) * per_page
     with obtener_cursor() as cursor:
-        cursor.execute("SELECT * FROM productos LIMIT ? OFFSET ?", (per_page, offset))
+        cursor.execute("SELECT * FROM productos LIMIT %s OFFSET %s", (per_page, offset))
         return cursor.fetchall()
     
 def contar_productos():
     with obtener_cursor() as cursor:
-        cursor.execute("SELECT COUNT(*) FROM productos")
-        return cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) as count FROM productos")
+        return cursor.fetchone()['count']
 
 def buscar_productos(termino):
     with obtener_cursor() as cursor:
         cursor.execute(
-            "SELECT * FROM productos WHERE nombre LIKE ? OR descripcion LIKE ?", (f"%{termino}%",f"%{termino}%")
+            "SELECT * FROM productos WHERE nombre LIKE %s OR descripcion LIKE %s", (f"%{termino}%",f"%{termino}%")
         )
         return cursor.fetchall()
