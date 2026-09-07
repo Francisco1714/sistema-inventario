@@ -1,9 +1,12 @@
 from flask import render_template, request, redirect, url_for, flash
 from web import web_bp
 from web.crud import obtener_producto_por_id, actualizar_producto
+from web.crud.base import get_db
 
 @web_bp.route("/productos/<int:id>/modificar", methods=["GET", "POST"])
 def modificar_producto_view(id):
+    db = next(get_db())
+    
     if request.method == "POST":
         nombre = request.form["nombre"]
         descripcion = request.form["descripcion"]
@@ -30,9 +33,9 @@ def modificar_producto_view(id):
             producto = {"id": id, "nombre": nombre, "descripcion": descripcion, "precio": precio, "stock": stock}
             return render_template("modificar_producto.html", producto=producto, errores=errores)
 
-        actualizar_producto(id, nombre, descripcion, precio_float, stock_int)
+        actualizar_producto(db, id, nombre, descripcion, precio_float, stock_int)
         flash("Producto modificado exitosamente", "success")
         return redirect(url_for("web.inicio"))
 
-    producto = obtener_producto_por_id(id)
+    producto = obtener_producto_por_id(db, id)
     return render_template("modificar_producto.html", producto=producto)

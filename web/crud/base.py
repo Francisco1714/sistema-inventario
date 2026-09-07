@@ -1,13 +1,8 @@
-from contextlib import contextmanager
-import psycopg2.extras
-from database.conexion import obtener_conexion
+from database.conexion import SessionLocal
 
-@contextmanager
-def obtener_cursor():
-    conexion = obtener_conexion()
+def get_db():
+    db = SessionLocal()
     try:
-        cursor = conexion.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-        yield cursor
-        conexion.commit()
+        yield db
     finally:
-        conexion.close()
+        db.close()

@@ -1,8 +1,13 @@
-from web.crud.base import obtener_cursor
+from sqlalchemy.orm import Session
+from database.models import Producto
 
-def actualizar_producto(id, nombre, descripcion, precio, stock):
-    with obtener_cursor() as cursor:
-        cursor.execute(
-            "UPDATE productos SET nombre = %s, descripcion = %s, precio = %s, stock = %s WHERE id = %s",
-            (nombre, descripcion, precio, stock, id)
-        )
+def actualizar_producto(db: Session, id: int, nombre: str, descripcion: str, precio: float, stock: int):
+    producto = db.query(Producto).filter_by(id=id).first()
+    if producto:
+        producto.nombre = nombre
+        producto.descripcion = descripcion
+        producto.precio = precio
+        producto.stock = stock
+        db.commit()
+        db.refresh(producto)
+    return producto
