@@ -1,0 +1,1 @@
+from . import listar, obtener, crear, put, patch, eliminar

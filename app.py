@@ -5,6 +5,9 @@ import os
 from web import web_bp 
 import web.routes
 
+from web.api import api_bp
+import web.api.routes
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -12,6 +15,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config['DATABASE_URL'] = os.getenv('DATABASE_URL')
 
 app.register_blueprint(web_bp)
+app.register_blueprint(api_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)
