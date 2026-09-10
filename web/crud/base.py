@@ -1,7 +1,8 @@
-from database.conexion import get_session_local as SessionLocal
+from database.conexion import get_session_local
 
 def get_db():
-    db = SessionLocal()
+    SessionFactory = get_session_local()
+    db = SessionFactory()
     try:
         yield db
     finally:
