@@ -357,7 +357,7 @@ En caso de error:
 
 La API forma parte de la misma aplicación y reutiliza la capa CRUD basada en SQLAlchemy ORM.
 
-# INSTALACION.md
+# INSTALACION
 
 ## Requisitos
 
@@ -419,7 +419,7 @@ Las pruebas utilizan SQLite en memoria para aislarlas de la base de datos Postgr
 
 ---
 
-# DESARROLLO.md
+# DESARROLLO
 
 ## Arquitectura
 
